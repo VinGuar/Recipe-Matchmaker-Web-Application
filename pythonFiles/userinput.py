@@ -1,36 +1,23 @@
-def checkInt(min):
+def ethnic(fullData, inp):
 
-    if min.isdigit():
-        return False
+    message = ""
+    boolean = False
+
+    df = fullData.loc[fullData['tags'].apply(lambda arr: inp in arr)]
+    if (df.shape[0] > 0):
+        boolean = True
+        return [message, boolean]
+                    
     else:
-        print("Please enter a numerical number.")
-        return True
+        message = "Your Cuisine was not in the dataset. Either try again with a different wording, choose a different cuisine, or move on"
+        boolean = False
 
+        return [message, boolean]
+                
 
-def minutes():
-    x = True
-    while x:
-        minutes = input("What is the max amout of minutes you want to spend cooking? (Enter digits): ")
-        x = checkInt(minutes)
-    return minutes
+        
 
-def ethnic(fullData):
-
-    ethnic = input("Is there any type of Cuisine you want (mexican, italian, etc)? If yes, type which one you want. If not, type 'no' : ")
-
-    while True:
-        if ethnic not in ["no", "'no'", "NO", "No"]:
-            df = fullData.loc[fullData['tags'].apply(lambda arr: ethnic in arr)]
-            if (df.shape[0] > 5):
-                break
-            else:
-                ethnic = input("Your Cuisine was not in the dataset. Either try again with a different wording, choose a different cuisine, or type 'no' : ")
-                continue
-        else:
-            return "none"
-    return ethnic
-
-def ingredients(fullData):
+def ingredients(fullData, inp):
     int = 1
     ingred = ""
     ingredList = []
@@ -41,13 +28,21 @@ def ingredients(fullData):
         if ingred not in ["DONE", "Done", "done", "'done'"]:
             df = fullData.loc[fullData['ingredients'].apply(lambda arr: ingred in arr)]
             if df.shape[0]>0:
-                ingredList.append(ingred)
+                if ingred in ingredList:
+                    print("You have already chosen this one. Either choose a different one or type 'done'")
+                else:
+                    ingredList.append(ingred)
+            else:
+                print("This ingredient was not in dataset. Change wording / spelling and try again, or just enter a different one.")
             
         else:
+            if len(ingredList) == 0:
+                ingredList = ["all"]
             break
 
     return ingredList
 
-def typeOfMeal():
-    mealArray = ["Main Dishes", "Side Dishes", "Appetizers", "Desserts", "Breakfast Foods", "Snacks", "Lunch Foods", ]
-    #HAVE SELECT MULTIPLE IF FITS THEIR NEEDS
+
+    
+    
+    
