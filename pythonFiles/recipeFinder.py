@@ -47,7 +47,6 @@ def tagsUpdate(arr, fullData):
     for i in arr:
         if count == 0:
             data = fullData.loc[fullData["tags"].apply(lambda tags: i in tags)]
-            print(data)
         else:
             data = pd.concat([data, fullData.loc[fullData["tags"].apply(lambda tags: i in tags)]], ignore_index = True)
 
@@ -61,79 +60,119 @@ def minRest(num, fullData):
     data = fullData.loc[fullData["minutes"].astype(int) <= num]
     return data
 
-#def decideOrder(d2Array):
-    reqArr = d2Array[0]
-    optRanked = d2Array[1]
-
-    dictOrder = {"0": "ingreds", "1": "minRest", "2": "cuisine", "3": "mealType"}
-    reqCoded = []
-    optRankedCoded = []
-
-    count = 0
-    while count < len(reqArr):
-        reqCoded.append(dictOrder[reqArr[count]])
-        count+=1
+def dishUpdate(dishArr, fullData):
     
-    count=0
-    while count<len(optRanked):
-        optRankedCoded.append(dictOrder[optRanked[count]])
+    count = 0
+    for item in dishArr:
+        if count == 0:
+            dataFin = fullData[fullData['name'].str.contains(item, case=False, na=False)]
+            df2 = fullData.loc[fullData['tags'].apply(lambda arr: item in arr)]
+            data = pd.concat([dataFin, df2], ignore_index = True)
+
+        else:
+            df = fullData[fullData['name'].str.contains(item, case=False, na=False)]
+            df2 = fullData.loc[fullData['tags'].apply(lambda arr: item in arr)]
+            data = pd.concat([df, df2], ignore_index = True)
+
+        data.drop_duplicates(subset="id", inplace=True)
+
+        dataFin = pd.concat([dataFin, data], ignore_index = True)
+        dataFin.drop_duplicates(subset="id", inplace=True)
         count+=1
+    return dataFin
 
-    return [reqCoded, optRankedCoded]
 
-def mainMaker(fullData, d2array, userData):
+def mainMaker(fullData, userData):
 
-    #for reference!
-    dictOrder = {"0": "ingreds", "1": "minRest", "2": "cuisine", "3": "mealType"}
     dataNew = fullData
 
-    reqArr = d2array[0]
-    optRanked = d2array[1]
+    #for reference!
+    #mealType=[] maxMin=5 cuisine=[] ingred=[] dish=[] req=['maxMin'] opt=[]
+
+    meal = userData.mealType
+    min = userData.maxMin
+    cuis = userData.cuisine
+    ingred = userData.ingred
+    dish = userData.dish
+    req = userData.req
+    opt = userData.opt
+
+    dataArr = [meal, min, cuis, ingred, dish]
+
+    if (len(meal)==0):
+        if 'mealType' in req:
+            req.remove('mealType')
+        elif 'mealType' in opt:
+            opt.remove('mealType')
+
+    if (len(cuis)==0):
+        if 'cuisine' in req:
+            req.remove('cuisine')
+        elif 'cuisine' in opt:
+            opt.remove('cuisine')
+
+    if (len(ingred)==0):
+        if 'ingred' in req:
+            req.remove('ingred')
+        elif 'ingred' in opt:
+            opt.remove('ingred')
+
+    if (len(dish)==0):
+        if 'dish' in req:
+            req.remove('dish')
+        elif 'dish' in opt:
+            opt.remove('dish')
+
 
     count = 0
-    while count < len(reqArr):
-        if reqArr[count] == "0":
-            dataNew = ingreds(userData[0], dataNew)
-        elif reqArr[count] == "1":
-            dataNew = minRest(userData[1], dataNew)
-        elif reqArr[count] == "2":
-            dataNew = tagsUpdate(userData[2], dataNew)
-        elif reqArr[count] == "3":
-            dataNew = tagsUpdate(userData[3], dataNew)
-            print(dataNew)
-            print(userData[3])
+    while count < len(req):
+        if req[count] == "mealType":
+            dataNew = tagsUpdate(meal, dataNew)
+        elif req[count] == "maxMin":
+            dataNew = minRest(min, dataNew)
+        elif req[count] == "cuisine":
+            dataNew = tagsUpdate(cuis, dataNew)
+        elif req[count] == "ingred":
+            dataNew = ingreds(ingred, dataNew)
+        elif req[count] == "dish":
+            dataNew = dishUpdate(dish, dataNew)
+
+        count+=1
         
         print(dataNew)
 
-        count += 1
 
     count = 0
-    while count < len(optRanked):
-        if optRanked[count] == "0":
-            dataTemp = ingreds(userData[0], dataNew)
+
+    while count < len(opt):
+        if opt[count] == "mealType":
+            dataTemp = tagsUpdate(meal, dataNew)
             if dataTemp.shape[0] == 0:
                 dataTemp = dataNew
 
-        elif optRanked[count] == "1":
-            dataTemp = minRest(userData[1], dataNew)
+        elif opt[count] == "maxMin":
+            dataTemp = minRest(min, dataNew)
             if dataTemp.shape[0] == 0:
                 dataTemp = dataNew
 
-        elif optRanked[count] == "2":
-            if userData[2][0] != "all":
-                dataTemp = tagsUpdate(userData[2], dataNew)
-                if dataTemp.shape[0] == 0:
-                    dataTemp = dataNew
+        elif opt[count] == "cuisine":
+            dataTemp = tagsUpdate(cuis, dataNew)
+            if dataTemp.shape[0] == 0:
+                dataTemp = dataNew
 
-        elif optRanked[count] == "3":
-            if userData[3][0] != "all":
-                dataTemp = tagsUpdate(userData[3], dataNew)
-                if dataTemp.shape[0] == 0:
-                    dataTemp = dataNew
+        elif opt[count] == "ingred":
+            dataTemp = ingreds(ingred, dataNew)
+            if dataTemp.shape[0] == 0:
+                dataTemp = dataNew
+
+        elif opt[count] == "dish":
+            dataTemp = dishUpdate(dish, dataNew)
+            if dataTemp.shape[0] == 0:
+                dataTemp = dataNew
         
 
         dataNew = dataTemp
-        print(dataNew)
+        #print(dataNew)
 
 
         count+=1

@@ -11,10 +11,15 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+fullData = pd.read_csv("recipes.csv")
+fullData = fullData.fillna('')
+
+
 inp = ""
 type1 = ""
 message = ''
 boolean = False
+recipes = ""
 
 def mainValidater(input1, type2):
     global boolean
@@ -29,14 +34,14 @@ def mainValidater(input1, type2):
 
     elif type2 == "ingreds":
         if (len(input1)>2):
-            userinput.ingredients(fullData, input1)
+            return userinput.ingredients(fullData, input1)
         else:
             boolean = False
             message = "Please enter an Ingredient with 3 or more letters."
 
     elif type2 == "typeOfFood":
         if (len(input1)>2):
-            pass
+            return userinput.typeMeal(fullData, input1)
         else:
             boolean = False
             message = "Please enter an Ingredient with 3 or more letters."
@@ -54,6 +59,19 @@ app.add_middleware(
 class Model(BaseModel):
     userInput: str
     type: str
+
+class Model2(BaseModel):
+    mealType: list
+    maxMin: int
+    cuisine: list
+    ingred: list
+    dish: list
+    req: list
+    opt: list
+
+def recipeMaker(answers):
+    return recipeFinder.mainMaker(fullData, answers)
+
 
 @app.get("/")
 async def root():
@@ -80,29 +98,20 @@ def validateInput(yes: Model):
 
     print(message, boolean)
 
-    return {"test": "azsdfghjkl"}
+    return {"post": "return"}
 
+@app.post("/answers")
+def doFind(answ: Model2):
+    global recipes
 
-fullData = pd.read_csv("recipes.csv")
+    print(answ)
+    recipes = recipeMaker(answ)
 
+    return {"post": "return2"}
 
-#univ = userinput.householdItems()
-#print("")
-#ingredArr = userinput.ingredients(fullData)
-#ingredArr.extend(univ)
-#print("")
-#minutes = userinput.minutes()
-#print("")
-#ethnicArr = userinput.ethnic(fullData)
-#print("")
-#mealArr = userinput.typeOfMeal()
-#print("")
-#ranked = userinput.rankRequests()
+@app.get("/recipes")
+async def root():
+    global recipes
 
-#userData = [ingredArr, minutes, ethnicArr, mealArr]
-
-#dataNew = recipeFinder.mainMaker(fullData, ranked, userData)
-
-
-#print(dataNew)
-
+    recipes = recipes.to_dict(orient='records')
+    return {"recipes":recipes}
