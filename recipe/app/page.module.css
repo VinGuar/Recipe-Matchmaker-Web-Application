@@ -5,8 +5,24 @@
   line-height: 25px;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  padding-bottom: 300px;
 
+}
 
+.requiredPara{
+  font-size: 15px;
+}
+
+.header{
+  max-width: 700px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  letter-spacing: 2px;
+  line-height: 30px;
 }
 
 .dropdown{
@@ -74,4 +90,61 @@
 
   pointer-events: none;
  
+}
+
+.mins{
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  text-align: center;
+}
+
+.enter{
+  width: 80px;
+  height: 27px;
+}
+
+.cuisine{
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  text-align: center;
+}
+
+.ingreds{
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  text-align: center;
+}
+
+.rankers{
+  max-width: 600px;
+  display: flex;
+  align-items: flex-start;
+  gap: 25px;
+  text-align: center;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
+
+.rankSects{
+  max-width: 600px;
+  display: flex;
+  align-items: flex-start;
+  gap: 95px;
+  text-align: center;
+  flex-direction: row;
+}
+
+.rankHead{
+  text-align: center;
 }
