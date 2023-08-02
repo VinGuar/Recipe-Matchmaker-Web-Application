@@ -9,33 +9,43 @@ def applyRow(row):
     return row
 
 
-def ingreds(ingredArr, fullData):
+def ingreds(ingredArr, fullDataTemp, numTemp):
 
     def removeIngred(row):
+
         row = ast.literal_eval(row)
 
-        for i in ingredArr:
-            for n in row:
-                if i in n:
-                    i = n
-                    row.remove(n)
+        for useringred in ingredArr:
+            for ingr in row:
+                if useringred in ingr:
+                    row.remove(ingr)
         return row
 
 
     def update():
-        fullData['ingredients'] = fullData['ingredients'].apply(removeIngred)
+        fullDataTemp['ingredients'] = fullDataTemp['ingredients'].apply(removeIngred)
       
             
-        return fullData
+        return fullDataTemp
     
-    
+    newData = fullDataTemp.copy()
+
+    basicIngreds = ["water", "flour", "butter", "sugar", "olive oil", "vegetable oil", "salt", "pepper", "garlic powder", 'onion powder', 'cumin', 'paprika', 'oregano', 'thyme', 'basil', 'rosemary', 'cinnamon', 'nutmeg']
+    ingredArr = ingredArr + basicIngreds
     data = update()
 
 
-    dataFinal = data.loc[data['ingredients'].apply(len) <= 0]
-    dataFinal = dataFinal.loc[dataFinal['n_ingredients'].astype(int) > 0]
+    dataFinal = data.loc[data['ingredients'].apply(len) <= numTemp]
+    array = list(dataFinal['id'])
 
-    return dataFinal
+    newData = newData.loc[newData['id'].isin(array)]
+
+    newData = newData.loc[newData['n_ingredients'].astype(int) > 3]
+
+    newData = newData.sort_values(by=['n_ingredients'], ascending=False)
+
+
+    return newData
 
 
 def tagsUpdate(arr, fullData):
@@ -84,10 +94,7 @@ def dishUpdate(dishArr, fullData):
 
 def mainMaker(fullData, userData):
 
-    dataNew = fullData
-
-    #for reference!
-    #mealType=[] maxMin=5 cuisine=[] ingred=[] dish=[] req=['maxMin'] opt=[]
+    dataNew = fullData.copy()
 
     meal = userData.mealType
     min = userData.maxMin
@@ -123,58 +130,60 @@ def mainMaker(fullData, userData):
         elif 'dish' in opt:
             opt.remove('dish')
 
-
     count = 0
     while count < len(req):
         if req[count] == "mealType":
-            dataNew = tagsUpdate(meal, dataNew)
+            dataTemp = dataNew.copy()
+            dataTemp = tagsUpdate(meal, dataTemp)
+            if dataTemp.shape[0] < 3:
+                dataTemp = dataNew.copy() 
+
         elif req[count] == "maxMin":
-            dataNew = minRest(min, dataNew)
+            dataTemp = dataNew.copy()
+            dataTemp = minRest(min, dataTemp)
+            if dataTemp.shape[0] < 3:
+                dataTemp = dataNew.copy()
+
         elif req[count] == "cuisine":
-            dataNew = tagsUpdate(cuis, dataNew)
+            dataTemp = dataNew.copy()
+            dataTemp = tagsUpdate(cuis, dataTemp)
+            if dataTemp.shape[0] < 3:
+                dataTemp = dataNew.copy()
+
         elif req[count] == "ingred":
-            dataNew = ingreds(ingred, dataNew)
+            dataTemp = dataNew.copy()
+            dataTemp = ingreds(ingred, dataTemp, 0)
+
+            if dataTemp.shape[0] < 3:
+                dataTemp = dataNew.copy()
+                dataTemp = ingreds(ingred, dataTemp, 1)
+
+                if dataTemp.shape[0] < 3:
+                    dataTemp = dataNew.copy()
+                    dataTemp = ingreds(ingred, dataTemp, 2)
+
+
+                    if dataTemp.shape[0] < 3:
+                        dataTemp = dataNew.copy()
+                        dataTemp = ingreds(ingred, dataTemp, 3)
+
+                        if dataTemp.shape[0] < 3:
+                            dataTemp = dataNew.copy()
+                            dataTemp = ingreds(ingred, dataTemp, 4)
+
+                            if dataTemp.shape[0] < 3:
+                                dataTemp = dataNew.copy()
+
         elif req[count] == "dish":
-            dataNew = dishUpdate(dish, dataNew)
+            dataTemp = dataNew.copy()
+            dataTemp = dishUpdate(dish, dataTemp)
+            if dataTemp.shape[0] < 3:
+                dataTemp = dataNew.copy()
 
-        count+=1
+        count+=1    
         
-        print(dataNew)
+        dataNew = dataTemp.copy()
 
 
-    count = 0
-
-    while count < len(opt):
-        if opt[count] == "mealType":
-            dataTemp = tagsUpdate(meal, dataNew)
-            if dataTemp.shape[0] == 0:
-                dataTemp = dataNew
-
-        elif opt[count] == "maxMin":
-            dataTemp = minRest(min, dataNew)
-            if dataTemp.shape[0] == 0:
-                dataTemp = dataNew
-
-        elif opt[count] == "cuisine":
-            dataTemp = tagsUpdate(cuis, dataNew)
-            if dataTemp.shape[0] == 0:
-                dataTemp = dataNew
-
-        elif opt[count] == "ingred":
-            dataTemp = ingreds(ingred, dataNew)
-            if dataTemp.shape[0] == 0:
-                dataTemp = dataNew
-
-        elif opt[count] == "dish":
-            dataTemp = dishUpdate(dish, dataNew)
-            if dataTemp.shape[0] == 0:
-                dataTemp = dataNew
-        
-
-        dataNew = dataTemp
-        #print(dataNew)
-
-
-        count+=1
     
     return dataNew

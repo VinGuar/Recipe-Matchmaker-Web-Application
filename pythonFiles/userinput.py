@@ -9,7 +9,7 @@ def ethnic(fullData, inp):
         return [message, boolean]
                     
     else:
-        message = "Your Cuisine was not in the dataset. Either try again with a different wording, choose a different cuisine, or move on"
+        message = "Your Cuisine was not in the dataset. Either try again with a different wording / spelling, choose a different cuisine, or move on"
         boolean = False
 
         return [message, boolean]

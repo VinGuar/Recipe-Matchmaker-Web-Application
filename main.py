@@ -19,7 +19,8 @@ inp = ""
 type1 = ""
 message = ''
 boolean = False
-recipes = ""
+recipes = []
+
 
 def mainValidater(input1, type2):
     global boolean
@@ -73,6 +74,7 @@ def recipeMaker(answers):
     return recipeFinder.mainMaker(fullData, answers)
 
 
+
 @app.get("/")
 async def root():
     global inp
@@ -96,7 +98,6 @@ def validateInput(yes: Model):
     message = returner[0]
     boolean = returner[1]
 
-    print(message, boolean)
 
     return {"post": "return"}
 
@@ -104,7 +105,6 @@ def validateInput(yes: Model):
 def doFind(answ: Model2):
     global recipes
 
-    print(answ)
     recipes = recipeMaker(answ)
 
     return {"post": "return2"}
@@ -112,6 +112,9 @@ def doFind(answ: Model2):
 @app.get("/recipes")
 async def root():
     global recipes
+    recipes = pd.DataFrame(recipes)
+    recipes.reset_index(inplace=True)
+    recipes = recipes.truncate(after=99)
 
     recipes = recipes.to_dict(orient='records')
     return {"recipes":recipes}
