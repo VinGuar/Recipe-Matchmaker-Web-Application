@@ -1,46 +1,138 @@
 .everything{
-  min-height: 100vh;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   letter-spacing: 2px;
   line-height: 25px;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  align-items: center;
-  gap: 30px;
-  padding-bottom: 300px;
+  gap: 0px;
+  cursor: default;
 
 }
 
-.requiredPara{
+.everythingLoad{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  letter-spacing: 2px;
+  line-height: 25px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0px;
+  cursor: progress;
+
+}
+
+.threeRow{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: stretch;
+
+}
+
+.stick{
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+}
+
+.leftMain{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  flex: 10%;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 150px;
+  position: relative;
+}
+
+
+.descText{
+  padding-left: 35px;
+  padding-right: 35px;
   font-size: 15px;
 }
 
-.header{
-  max-width: 700px;
-  text-align: center;
+.deschead{
+  padding-left: 35px;
+  padding-right: 35px;
+
   font-weight: bold;
-  font-size: 18px;
-  letter-spacing: 2px;
+}
+
+.maintitle{
+  color: rgb(0, 0, 0);
+
+}
+
+.header{
+  color: rgb(0, 0, 0);
+  padding: 25px;
+  text-align: center;
+  font-size: 15px;
+  letter-spacing: 1px;
   line-height: 30px;
 }
 
 .dropdown{
-  max-width: 350px;
   padding-top: 20px;
   z-index: 999;
   cursor: text;
+  display: flex;
+  align-self: center;
+}
+
+.dropdown2{
+  padding-top: 20px;
+  z-index: 998;
+  cursor: text;
+  display: flex;
+  align-self: center;
+}
+.wholedropper{
+  align-self: center;
+
 }
 
 .dropdownlabel{
-  max-width: 350px;
   display: flex;
   flex-wrap: wrap;
-  
 }
 
 .hide{
   display: none;
+}
+
+.show{
+  display: block;
+}
+
+.showTop{
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.showAll{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.arrows{
+  font-size: 40px;
+}
+
+.arrows:hover{
+  transition: all 0.4s;
+  transform: rotate(360deg);
+  cursor: pointer;
+
 }
 
 .list{
@@ -87,18 +179,23 @@
 
 .listBox{
   max-width: 300px;
-
   pointer-events: none;
  
 }
 
 .mins{
-  max-width: 350px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
   text-align: center;
+  padding: 25px;
+
+}
+
+.textfilt{
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .enter{
@@ -107,44 +204,223 @@
 }
 
 .cuisine{
-  max-width: 350px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
   text-align: center;
+  padding-top: 25px;
 }
 
 .ingreds{
-  max-width: 350px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
   text-align: center;
+  padding-top: 25px;
+
 }
 
 .rankers{
-  max-width: 600px;
+  max-width: 550px;
   display: flex;
-  align-items: flex-start;
-  gap: 25px;
   text-align: center;
   flex-direction: column;
   text-align: center;
   align-items: center;
+  align-self: center;
 }
 
 
 .rankSects{
   max-width: 600px;
   display: flex;
-  align-items: flex-start;
-  gap: 95px;
+  gap: 10px;
+  align-items: center;
   text-align: center;
-  flex-direction: row;
+  flex-direction: column;
+  align-self: center;
+  padding: 25px;
+  justify-content: center;
+  border-bottom: solid;
+  border-width: 1px;
+}
+
+.rankind{
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.line{
+  border-top: solid;
+  border-top-width: 1px;
+  border-color: rgb(120, 120, 120);
+  width: 75px;
+  padding-bottom: 15px;
 }
 
 .rankHead{
   text-align: center;
+}
+
+.sliver{
+  outline: solid 1px black;
+  font-size: 13px;
+  padding: 10px;
+  background-color: rgb(21, 176, 151);
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.hold{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  justify-content: center;
+
+}
+
+.hide{
+  height: 0px;
+}
+
+.button{
+  align-self: center;
+  margin-top: 30px;
+  padding: 18px;
+  font-size: 18px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  letter-spacing: 3px;
+  font-weight: bold;
+  padding-left: 45px;
+  padding-right: 45px;
+  cursor: pointer;
+  border-radius: 30px;
+  background: linear-gradient(to left, rgb(21, 176, 151) 50%, rgb(0, 61, 0) 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 1s ease;
+  margin: 70px;
+  margin-top: 0px;
+
+}
+
+.buttonLoad{
+  align-self: center;
+  margin-top: 30px;
+  padding: 18px;
+  font-size: 18px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  letter-spacing: 3px;
+  font-weight: bold;
+  padding-left: 45px;
+  padding-right: 45px;
+  cursor: pointer;
+  border-radius: 30px;
+  background: linear-gradient(to left, rgb(21, 176, 151) 50%, rgb(0, 61, 0) 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 1s ease;
+  margin: 70px;
+  margin-top: 0px;
+  cursor: progress;
+}
+
+.button:hover{
+  background-position: left bottom;
+  color: white;
+
+}
+
+.buttonGit{
+  align-self: center;
+  margin-top: 30px;
+  padding: 16px;
+  font-size: 16px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  letter-spacing: 3px;
+  padding-left: 45px;
+  padding-right: 45px;
+  cursor: pointer;
+  border-radius: 30px;
+  background: linear-gradient(to left, rgb(187, 189, 246) 50%, rgb(125, 130, 252) 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 1s ease;
+  margin: 70px;
+  margin-top: 0px;
+  margin-bottom: 20px;
+
+}
+
+.buttonGit:hover{
+  background-position: left bottom;
+  color: white;
+
+}
+
+.mains{
+  min-width: 550px;
+  text-align: center;
+  
+
+}
+
+.mainsecs{
+  max-width: 550px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-self: center;
+  gap: 0px;
+  padding-top: 30px;
+  outline: 1px solid black;
+  align-items: center;
+  background-color: rgb(187, 189, 246);
+  min-height: 85vh;
+  flex: 10%;
+  
+
+}
+
+.recipeMain{
+  min-height: 270px;
+  background-color: rgb(255, 215, 182);
+  border-top: solid;
+  border-top-width: 1px;
+  flex: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 50px;
+  padding-bottom: 50px;
+
+}
+
+.recDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 650px;
+  outline: 1px solid black;
+  margin-bottom: 50px;
+  padding: 50px;
+  background-color: rgb(247, 243, 227);
+  margin-top: 40px;
+
+}
+
+.titleRec{
+  font-weight: bold;
+}
+
+.ingredSec{
+  display: flex;
+  gap: 50px;
 }

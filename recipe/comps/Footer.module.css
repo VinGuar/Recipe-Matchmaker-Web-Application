@@ -1,0 +1,42 @@
+.footerMain{
+    background-color: rgb(0, 36, 0);
+    min-height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 150px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.foothead{
+    color: white;
+    text-align: center;
+
+}
+
+.footerpara:hover{
+    transform: scale(1.1);
+    transition: .4s;
+}
+
+.name{
+    display: flex;
+    flex-direction: column;
+}
+
+.iconfooter{
+    filter: invert(100%);
+
+}
+
+.iconfootersecs{
+    display: flex;
+    gap: 50px;
+    align-items: center;
+}
+
+.iconfooter:hover, .footerpara:hover{
+    transition: .3s ease-in-out;
+    transform: scale(1.2);
+}
