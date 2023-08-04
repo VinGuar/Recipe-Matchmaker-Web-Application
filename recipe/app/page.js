@@ -35,18 +35,15 @@ export default function Home() {
   
   }
 
-  var options2 = [
-
-  ];
-
-
+  // use state to set which filters should be included in the options for the user
   const [opt1, setOpt] = useState([]);
 
     const optChange = () => {
       setOpt(curr => [])
 
+      //these if statements makeit so if theres ever any input, it adds  that filter to Opt1
       if (typeMeal.length > 0){
-        if (!(req.includes('mealType') || optional.includes('mealType'))){
+        if (!(req.includes('mealType'))){
 
           setOpt(curr => [...curr, { label: 'Meal Type (Main Dish, Dessert, etc)', value: 'mealType' }])
 
@@ -54,28 +51,28 @@ export default function Home() {
 
       }
       if (num != 999999999){
-        if (!(req.includes('maxMin') || optional.includes('maxMin'))){
+        if (!(req.includes('maxMin'))){
           setOpt(curr => [...curr, { label: 'Max Number of Minutes', value: 'maxMin' }])
 
         }
 
       }
       if (typeCuis.length > 0){
-        if (!(req.includes('cuisine') || optional.includes('cuisine'))){
+        if (!(req.includes('cuisine'))){
           setOpt(curr => [...curr, { label: 'Cuisine Type (mexican, italian, etc)', value: 'cuisine' }])
 
         }
 
       }
       if (typeIngred.length > 0){
-        if (!(req.includes('ingred') || optional.includes('ingred'))){
+        if (!(req.includes('ingred'))){
           setOpt(curr => [...curr, { label: 'Having all the ingredients needed', value: 'ingred' }])
 
         }
 
       }
       if (typeDish.length > 0){
-        if (!(req.includes('dish') || optional.includes('dish'))){
+        if (!(req.includes('dish'))){
           setOpt(curr => [...curr, { label: 'Dish Type (mac n cheese, brownies, etc)', value: 'dish' }])
 
         }
@@ -85,7 +82,7 @@ export default function Home() {
     }
 
 
-
+  // these next functions, handleclicksm handle the click or change of the input fields by editing the usestate variables for that filter.
   const handleClick = (value) => {
     setTest((curr) => curr.filter((item) => item.props.id != value));
     setTypeInc((curr) => curr.filter((item) => item != value));
@@ -115,13 +112,8 @@ export default function Home() {
 
   }
 
-  const handleClick6 = (value) => {
-    setOptionalElem((curr) => curr.filter((item) => item.props.id != value));
-    setOptional((curr) => curr.filter((item) => item != value));
 
-  }
-
-
+  // options for the filter of meal or course type
   const options = [
     { label: 'Main Dishes', value: 'main-dish' },
     { label: 'Side Dishes', value: 'side-dishes' },
@@ -134,6 +126,7 @@ export default function Home() {
   ];
 
 
+  //these are the useState variables used the store the user data for sending off at the end of the code.
 
   const [typeMeal, setTest] = useState([]);
   const [typeMealInc, setTypeInc] = useState([]);
@@ -154,9 +147,9 @@ export default function Home() {
   const [req, setReq] = useState([]);
   const [reqElem, setReqElem] = useState([]);
 
-  const [optional, setOptional] = useState([]);
-  const [optionalElem, setOptionalElem] = useState([]);
 
+  //handle change functions are used when the dropdown menus are clicked or changed, and then adds the element to the page and adds it to list
+  
   const handleChange = (selectedOption) => {
     var label = selectedOption['label']
     var value = selectedOption['value']
@@ -186,19 +179,7 @@ export default function Home() {
 
   }
 
-  const handleChange3 = (selectedOption) => {
-    var label = selectedOption['label']
-    var value = selectedOption['value']
-
-    if (req.includes(value)){
-
-      window.alert("Already selected. Please select a different one.")
-    } else {
-      setOptionalElem(curr => [...curr, <li id={value} className={styles.list} onClick={() => handleClick6(value)}>{label}</li>]);
-      setOptional(prevState  => [...prevState, value]);
-    }
-
-  }
+  //these are used when the user clicks enter on a category. It then takes this data, does simple validation, and then sets the variables and page element to the value.
 
   const keyClick1 = (event) => {
     if (event.key === "Enter"){
@@ -207,14 +188,18 @@ export default function Home() {
 
         window.alert("Please enter just a positive numerical number")
         document.getElementById("numInput").value = ""
+        setNum(current => 999999999)
+
 
       } else{
 
         if (numTemp === ""){
-          window.alert("Please enter just a positive numerical number")
+          document.getElementById("numInput").blur()
+          setNum(current => 999999999)
+        } else {
+          setNum(current => numTemp)
+          document.getElementById("numInput").blur()
         }
-        setNum(current => numTemp)
-        document.getElementById("numInput").blur()
       }
 
     }
@@ -223,6 +208,7 @@ export default function Home() {
   const keyClick2 = async (event) => {
     if (event.key === "Enter"){
       var cuisTemp = document.getElementById("cuisInput").value
+      cuisTemp = cuisTemp.toLowerCase();
       if (typeCuis.includes(cuisTemp)){
         window.alert("Already selected. Please choose something else.")
 
@@ -249,6 +235,8 @@ export default function Home() {
   const keyClick3 = async (event) => {
     if (event.key === "Enter"){
       var ingred = document.getElementById("ingredInput").value
+      ingred = ingred.toLowerCase();
+
       if (typeIngred.includes(ingred)){
         window.alert("Already selected. Please enter a different ingredient.")
       } else if (ingred.length < 3){
@@ -273,6 +261,8 @@ export default function Home() {
   const keyClick4 = async (event) => {
     if (event.key === "Enter"){
       var dish = document.getElementById("dishInput").value
+      dish = dish.toLowerCase();
+
       if (typeDish.includes(dish)){
         window.alert("Already selected. Please choose something else.")
 
@@ -295,6 +285,7 @@ export default function Home() {
 
   }
 
+  //function that turns an array that is formatted incorrectly into a correctly formatted array. Since the data set is so large, there are many things that need to be done to format correctly.
   function parseArray(arr, bool){
 
    try{
@@ -325,17 +316,23 @@ export default function Home() {
     return newArr
   }
 
+  //useStates for progress, num of recipes, pages, and message.
   const [prog, setProg] = useState(false)
   const [recNum, setRecNum] = useState(0)
   const [pageList, setPageList] = useState(false)
+  const [msg, setMsg] = useState(false)
 
+
+  //function when user submits form. quick validation, then sends data off to the docker container for creation of recipes, and then recieves said data, parses, and makes it into recipe elements.
   async function submitForm() {
+    setMsg(curr => true)
 
     var recipeFin = []
 
     if (opt1.length>0){
       window.alert("Please select all options from the drop down menu in the required filter.")
       document.getElementById('rank').scrollIntoView({ behavior: 'smooth', block:'center'});
+      setMsg(curr => false)
       return
 
     } 
@@ -348,7 +345,6 @@ export default function Home() {
         ingred: typeIngred,
         dish: typeDish,
         req: req,
-        opt: optional
       };   
       const response = await fetch("http://192.168.80.1:8000/answers",{
         method: 'POST',
@@ -430,7 +426,7 @@ export default function Home() {
                   <p>{nutrEle}</p>          
                 </div>
               </div>
-              <p>Steps:</p>
+              <p style={{"font-weight":"bold"}}>Steps:</p>
               <ol>{stepEls}</ol>
             </div>
 
@@ -446,12 +442,14 @@ export default function Home() {
     handlePageClick(1)
     document.getElementById('rec').scrollIntoView({ behavior: 'smooth', block:'start'});
     setProg(curr => false)
+    setMsg(curr => false)
     
     
 
 
   }
 
+  // use states for the pages
   const [page1, setPage1] = useState([]);
   const [page2, setPage2] = useState([]);
   const [page3, setPage3] = useState([]);
@@ -463,6 +461,7 @@ export default function Home() {
   const [page9, setPage9] = useState([]);
   const [page10, setPage10] = useState([]);
 
+  //makes each page into ten recipes per page.
   function pageNum(currRecipe, numb, bigArr, bool){
 
 
@@ -520,16 +519,16 @@ export default function Home() {
       }
 
     } else if (!bool){
-      setPage1(curr => bigArr[0])
-      setPage2(curr => bigArr[1])
-      setPage3(curr => bigArr[2])
-      setPage4(curr => bigArr[3])
-      setPage5(curr => bigArr[4])
-      setPage6(curr => bigArr[5])
-      setPage7(curr => bigArr[6])
-      setPage8(curr => bigArr[7])
-      setPage9(curr => bigArr[8])
-      setPage10(curr => bigArr[9])
+        setPage1(curr => bigArr[0])
+        setPage2(curr => bigArr[1])
+        setPage3(curr => bigArr[2])
+        setPage4(curr => bigArr[3])
+        setPage5(curr => bigArr[4])
+        setPage6(curr => bigArr[5])
+        setPage7(curr => bigArr[6])
+        setPage8(curr => bigArr[7])
+        setPage9(curr => bigArr[8])
+        setPage10(curr => bigArr[9])
 
     }
 
@@ -537,6 +536,7 @@ export default function Home() {
 
   }
 
+  //where main page making is done. loops through recipes and sets ten per page.
   function makePages(recipeFin){
     var currArr1 = []
     var currArr2 = []
@@ -576,10 +576,10 @@ export default function Home() {
   }
 
 
-
+  //use effect to update opt1 each time something changes.
   useEffect(() => {
     optChange()
-  }, [typeMeal, req, num, typeCuis, typeIngred, typeDish, req, optional])
+  }, [typeMeal, req, num, typeCuis, typeIngred, typeDish, req])
 
   const slivClick = (numClick) => {
     if (numClick===0){
@@ -724,14 +724,6 @@ export default function Home() {
           </div>
 
           <div className={styles.mains}>
-            <div onClick={() => slivClick(1)} className={styles.sliver}>Max Minutes to Spend (optional)</div>
-            <div  className={sliver1 ? styles.hide : styles.mins}>
-              <label className={styles.textfilt}>Enter max minutes you want to spend. Press ENTER key when done.</label>
-              <input id = "numInput" onKeyDown={() => keyClick1(event)}></input>
-            </div>
-          </div>
-
-          <div className={styles.mains}>
             <div onClick={() => slivClick(2)} className={styles.sliver}>Cuisine Type (Mexican, Thai, etc) (optional)</div>
             <div  className={sliver2 ? styles.hide : styles.cuisine}>
               <label className={styles.textfilt}>Enter any cuisines you want (mexican, italian, etc). Press ENTER key after each one. </label>
@@ -750,6 +742,14 @@ export default function Home() {
               <ol className={styles.listBox}>
                 {typeDishElem}
               </ol>
+            </div>
+          </div>
+
+          <div className={styles.mains}>
+            <div onClick={() => slivClick(1)} className={styles.sliver}>Max Minutes to Spend (optional)</div>
+            <div  className={sliver1 ? styles.hide : styles.mins}>
+              <label className={styles.textfilt}>Enter max minutes you want to spend. Press ENTER key when done.</label>
+              <input id = "numInput" onKeyDown={() => keyClick1(event)}></input>
             </div>
           </div>
 
@@ -777,20 +777,6 @@ export default function Home() {
                 </ol>
               </div>
 
-              {/** <div className={styles.rankind} onClick={() => optChange()}>
-                <label className={styles.dropdownlabel}>2. Now rank the remaining categories in order of importance to you. *</label>
-                <Select 
-                className={styles.dropdown2}
-                options={opt1}
-                isSearchable = {true}
-                placeholder="Type here..."
-                onChange={handleChange3}
-                />
-                <ol className={styles.listBox}>
-                  {optionalElem}
-                </ol>
-                </div> **/}
-
 
             </div>
 
@@ -798,6 +784,9 @@ export default function Home() {
 
 
           <button className={prog ? styles.buttonLoad : styles.button} onClick={() => submitForm()}>Submit!</button>
+          <p className={msg ? styles.msgShow : styles.hide}>Loading... </p>
+          <p className={msg ? styles.msgShow : styles.hide} style={{"margin-bottom":"50px"}}>Please be patient, it can take a few seconds!</p>
+
         </div>
         <div className={styles.leftMain}>
           <div className={styles.stick}>
@@ -813,7 +802,7 @@ export default function Home() {
         <div className={styles.recipeMain}>
           <h1 id = "rec">Recipe Results</h1>
           <p># of recipes shown varies</p>
-          <p style={{"padding-top":"50px", "font-weight":"bold"}}className={pageList ? styles.hide : styles.show}>Recipes Go Here on User Submission!</p>
+          <p style={{"padding-top":"50px", "align-self":"center", "font-weight":"bold"}}className={pageList ? styles.hide : styles.show}>Recipes Go Here on User Submission!</p>
           <div className={pageList ? styles.showAll : styles.hide} >
             <div className={styles.showTop}>
               <p onClick={() => handlePageClick(currNum-1)} className={styles.arrows}>&#x21A2;</p>

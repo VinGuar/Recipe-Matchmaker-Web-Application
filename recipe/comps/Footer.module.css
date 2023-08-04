@@ -1,5 +1,5 @@
 .footerMain{
-    background-color: rgb(0, 36, 0);
+    background-color: rgb(108, 88, 76);
     min-height: 150px;
     display: flex;
     justify-content: center;
@@ -26,7 +26,8 @@
 }
 
 .iconfooter{
-    filter: invert(100%);
+    -webkit-filter: invert(100%);
+            filter: invert(100%);
 
 }
 
@@ -40,3 +41,25 @@
     transition: .3s ease-in-out;
     transform: scale(1.2);
 }
+
+@media screen and (max-width:1050px) {
+
+    .footerMain{
+        flex-direction: column;
+        gap: 25px;
+        padding-bottom: 50px;
+        padding-top: 50px;
+
+    }
+
+    .name{
+        order: 2;
+        padding-left: 15px;
+        padding-right: 15px;
+
+    }
+
+
+  
+
+  } 
