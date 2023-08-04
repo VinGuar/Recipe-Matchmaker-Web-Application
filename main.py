@@ -8,24 +8,25 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
-
+#make fast api app
 app = FastAPI()
 
 fullData = pd.read_csv("recipes.csv")
 fullData = fullData.fillna('')
 
-
+#blank vars for output on fastapi
 inp = ""
 type1 = ""
 message = ''
 boolean = False
 recipes = []
 
-
+#this validates the data sent over
 def mainValidater(input1, type2):
     global boolean
     global message
 
+    #these if statements either send it over to userInput to validate further, or stop it right here and send back error message.
     if type2 == "cuisine":
         if (len(input1)>3):
             return userinput.ethnic(fullData, input1)
@@ -49,7 +50,7 @@ def mainValidater(input1, type2):
 
     return [message, boolean]
 
-
+#this is here just so nothing is blocked access.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -57,10 +58,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+#model for validating input
 class Model(BaseModel):
     userInput: str
     type: str
 
+#model for crating recipes
 class Model2(BaseModel):
     mealType: list
     maxMin: int
@@ -68,13 +71,13 @@ class Model2(BaseModel):
     ingred: list
     dish: list
     req: list
-    opt: list
 
+#calls the mainMaker in recipe finder file and returns it.
 def recipeMaker(answers):
     return recipeFinder.mainMaker(fullData, answers)
 
 
-
+#default get, displays the validation error message or success message.
 @app.get("/")
 async def root():
     global inp
@@ -84,6 +87,7 @@ async def root():
 
     return {"valid":boolean, "msg":message}
 
+#this is where the user sends data to validate.
 @app.post("/input")
 def validateInput(yes: Model):
     global inp
@@ -101,6 +105,7 @@ def validateInput(yes: Model):
 
     return {"post": "return"}
 
+#this is where all user data is sent from the website
 @app.post("/answers")
 def doFind(answ: Model2):
     global recipes
@@ -109,11 +114,13 @@ def doFind(answ: Model2):
 
     return {"post": "return2"}
 
+#this is where the recipes are outputted. Drops duplicates and resets index for simplicity. Then it makes it a length of 100 so it is not posting some huge file.
 @app.get("/recipes")
 async def root():
     global recipes
     recipes = pd.DataFrame(recipes)
-    recipes.reset_index(inplace=True)
+    recipes.drop_duplicates(subset="id", inplace=True)
+    recipes.reset_index(drop=True, inplace=True)
     recipes = recipes.truncate(after=99)
 
     recipes = recipes.to_dict(orient='records')
