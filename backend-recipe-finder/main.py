@@ -7,11 +7,14 @@ import json
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
+from zipfile import ZipFile
 
 #make fast api app
 app = FastAPI()
 
-fullData = pd.read_csv("recipes.csv")
+fullData = pd.read_csv('recipes.zip',compression='zip')
+
 fullData = fullData.fillna('')
 
 #blank vars for output on fastapi
