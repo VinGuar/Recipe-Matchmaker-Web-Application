@@ -20,7 +20,7 @@ export default function Home() {
       userInput: inp,
       type: typeIn
     };    
-    const response = await fetch("http://192.168.80.1:8000/input",{
+    const response = await fetch("https://backend-recipe-finder.vercel.app/input",{
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export default function Home() {
       body: JSON.stringify(dataToSend)
     });
     
-    const ans = await fetch("http://192.168.80.1:8000");
+    const ans = await fetch("https://backend-recipe-finder.vercel.app/");
     const answer = await ans.json();
     var arr = [answer.valid, answer.msg]
     return arr
@@ -346,7 +346,7 @@ export default function Home() {
         dish: typeDish,
         req: req,
       };   
-      const response = await fetch("http://192.168.80.1:8000/answers",{
+      const response = await fetch("https://backend-recipe-finder.vercel.app/answers",{
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
@@ -354,7 +354,7 @@ export default function Home() {
         body: JSON.stringify(dataToSend1)
       });
 
-      const recip = await fetch('http://192.168.80.1:8000/recipes')
+      const recip = await fetch('https://backend-recipe-finder.vercel.app/recipes')
       var parsed = await recip.json()
       var recArr = await parsed.recipes
 
