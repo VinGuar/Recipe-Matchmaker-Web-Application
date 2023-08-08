@@ -16,7 +16,7 @@ app = FastAPI()
 
 parquet_file = ParquetFile('recipes.parquet')
 fullData = parquet_file.to_pandas()
-fullData = fullData.fillna('')
+
 
 
 

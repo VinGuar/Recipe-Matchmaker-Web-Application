@@ -682,7 +682,7 @@ export default function Home() {
           <div className={styles.stick}>
             <p className={styles.deschead}>How it works (user aspects):</p>
             <div className={styles.line} style={{"border-color":"black", "margin":"15px"}}></div>
-            <p className={styles.descText} style={{"padding-bottom":"30px"}}>Using your input, it precisely identifies recipes that perfectly match your needs among over 200,000 options. By filtering out recipes that fall short of your criteria, it presents the most relevant matches at the bottom!</p>
+            <p className={styles.descText} style={{"padding-bottom":"30px"}}>Using your input, it precisely identifies recipes that perfectly match your needs of almost 200,000 options. By filtering out recipes that fall short of your criteria, it presents the most relevant matches at the bottom!</p>
             <a className={styles.projorder2} href ="https://github.com/VinGuar/Recipe-Matchmaker-Web-Application" target = "_blank">
               <button className={styles.buttonGit}>View on Github!</button>
             </a>
