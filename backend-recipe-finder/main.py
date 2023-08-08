@@ -8,14 +8,18 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-
+import fastparquet as fp
+from fastparquet import ParquetFile
 
 #make fast api app
 app = FastAPI()
 
-fullData = pd.read_csv('Book1.zip')
-
+parquet_file = ParquetFile('recipes.parquet')
+fullData = parquet_file.to_pandas()
 fullData = fullData.fillna('')
+
+
+
 
 #blank vars for output on fastapi
 inp = ""
@@ -122,12 +126,9 @@ def doFind(answ: Model2):
 async def root():
     global recipes
     recipes = pd.DataFrame(recipes)
-    recipes.drop_duplicates(subset="id", inplace=True)
+    recipes.drop_duplicates(subset="name", inplace=True)
     recipes.reset_index(drop=True, inplace=True)
     recipes = recipes.truncate(after=99)
 
     recipes = recipes.to_dict(orient='records')
     return {"recipes":recipes}
-
-if __name__ == "__main__":
-  uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

@@ -42,9 +42,9 @@ def ingreds(ingredArr, fullDataTemp, numTemp):
     #next 8ish lines find dataframes where ingredients are less than numTemp and then gets these rows id to copy into a new dataframe
     #new dataframe does not have ingredients removed by old dataframe. Then it sorts values and returns them.
     dataFinal = data.loc[data['ingredients'].apply(len) <= numTemp]
-    array = list(dataFinal['id'])
+    array = list(dataFinal['name'])
 
-    newData = newData.loc[newData['id'].isin(array)]
+    newData = newData.loc[newData['name'].isin(array)]
 
     newData = newData.loc[newData['n_ingredients'].astype(int) > 3]
 
@@ -96,10 +96,10 @@ def dishUpdate(dishArr, fullData, arrForIngred):
             data = pd.concat([df, df2], ignore_index = True)
             data = pd.concat([data, df3], ignore_index=True)
 
-        data.drop_duplicates(subset="id", inplace=True)
+        data.drop_duplicates(subset="name", inplace=True)
 
         dataFin = pd.concat([dataFin, data], ignore_index = True)
-        dataFin.drop_duplicates(subset="id", inplace=True)
+        dataFin.drop_duplicates(subset="name", inplace=True)
         count+=1
     
 
