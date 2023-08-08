@@ -158,7 +158,7 @@ export default function Home() {
     if (typeMealInc.includes(value)){
       window.alert("Already selected. Please select a different one.")
     } else {
-      setTest(curr => [...curr, <li id={value} className={styles.list} onClick={() => handleClick(value)}>{label}</li>]);
+      setTest(curr => [...curr, <li key={value} id={value} className={styles.list} onClick={() => handleClick(value)}>{label}</li>]);
       setTypeInc(prevState  => [...prevState, value]);
     }
 
@@ -173,7 +173,7 @@ export default function Home() {
 
       window.alert("Already selected. Please select a different one.")
     } else {
-      setReqElem(curr => [...curr, <li id={value} className={styles.list} onClick={() => handleClick5(value)}>{label}</li>]);
+      setReqElem(curr => [...curr, <li key={value} id={value} className={styles.list} onClick={() => handleClick5(value)}>{label}</li>]);
       setReq(prevState  => [...prevState, value]);
     }
 
@@ -218,7 +218,7 @@ export default function Home() {
           var arr1 = await sendData(cuisTemp, "cuisine")
 
             if (arr1[0]===true){
-              setCuisElem(curr => [...curr, <li id={cuisTemp} className={styles.list} onClick={() => handleClick2(cuisTemp)}>{cuisTemp}</li>])
+              setCuisElem(curr => [...curr, <li key={cuisTemp} id={cuisTemp} className={styles.list} onClick={() => handleClick2(cuisTemp)}>{cuisTemp}</li>])
               setCuis(curr => [...curr, cuisTemp])
               document.getElementById("cuisInput").value = ""
             } else{
@@ -244,7 +244,7 @@ export default function Home() {
       }else{
             var arr2 = await sendData(ingred, "ingreds")
             if (arr2[0]===true){
-              setIngredElem(curr => [...curr, <li id={ingred} className={styles.list} onClick={() => handleClick3(ingred)}>{ingred}</li>])
+              setIngredElem(curr => [...curr, <li key={ingred} id={ingred} className={styles.list} onClick={() => handleClick3(ingred)}>{ingred}</li>])
               setIngred(curr => [...curr, ingred])
               document.getElementById("ingredInput").value = ""
             }else{
@@ -271,7 +271,7 @@ export default function Home() {
       }else{
             var arr3 = await sendData(dish, "typeOfFood")
             if (arr3[0]===true){
-              setDishElem(curr => [...curr, <li id={dish} className={styles.list} onClick={() => handleClick4(dish)}>{dish}</li>])
+              setDishElem(curr => [...curr, <li key={dish} id={dish} className={styles.list} onClick={() => handleClick4(dish)}>{dish}</li>])
               setDish(curr => [...curr, dish])
               document.getElementById("dishInput").value = ""
             }else{
@@ -378,14 +378,14 @@ export default function Home() {
         var ingredEls = []
         var count = 0
         while (count<ingred.length){
-          ingredEls.push(<li>{ingred[count]}</li>)
+          ingredEls.push(<li key={ignred}>{ingred[count]}</li>)
           count+=1
         }
 
         var stepEls = []
         var count = 0
         while (count<steps.length){
-          stepEls.push(<li>{steps[count]}</li>)
+          stepEls.push(<li key={ignred}>{steps[count]}</li>)
           count+=1
         }
 
