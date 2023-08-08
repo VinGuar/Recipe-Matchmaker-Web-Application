@@ -378,14 +378,14 @@ export default function Home() {
         var ingredEls = []
         var count = 0
         while (count<ingred.length){
-          ingredEls.push(<li key={ignred}>{ingred[count]}</li>)
+          ingredEls.push(<li key={ingred[count]}>{ingred[count]}</li>)
           count+=1
         }
 
         var stepEls = []
         var count = 0
         while (count<steps.length){
-          stepEls.push(<li key={ignred}>{steps[count]}</li>)
+          stepEls.push(<li key={ingred[count]}>{steps[count]}</li>)
           count+=1
         }
 
