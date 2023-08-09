@@ -2,6 +2,8 @@
 
 import pandas as pd
 import ast
+import re
+
 
 #turns stringified arrays into arrays
 def applyRow(row):
@@ -9,54 +11,77 @@ def applyRow(row):
         row = ast.literal_eval(row)
     except:
         pass  
+
     return row
 
 #finds reciopes that match ingredients entered
 def ingreds(ingredArr, fullDataTemp, numTemp):
 
-    #removes ingredients from rows. This is done to see which rows are left with no ingredients, which means that all of its ingredients are user ingredients.
-    def removeIngred(row):
-
-        row = ast.literal_eval(row)
-
-        for useringred in ingredArr:
-            for ingr in row:
-                if useringred in ingr:
-                    row.remove(ingr)
-        return row
-
-    
-    def update():
-        fullDataTemp['ingredients'] = fullDataTemp['ingredients'].apply(removeIngred)
-                  
-        return fullDataTemp
-    
-
-    newData = fullDataTemp.copy()
 
     #ingredients that most people have already in their household
     basicIngreds = ["water", "flour", "butter", "sugar", "olive oil", "vegetable oil", "salt", "pepper", "garlic powder", 'onion powder', 'cumin', 'paprika', 'oregano', 'thyme', 'basil', 'rosemary', 'cinnamon', 'nutmeg']
     ingredArr = ingredArr + basicIngreds
-    data = update()
+
+    newArr = ingredArr.copy()
+
+    for i in ingredArr:
+        if i in newArr:
+            for elem in ingredArr:
+                if i in elem and elem in newArr:
+                    newArr.remove(elem)
+        
+            newArr.append(i)
+
+
+
+    #removes ingredients from rows. This is done to see which rows are left with no ingredients, which means that all of its ingredients are user ingredients.
+    def removeIngred(row):
+
+        commas = row.count(",")
+        elemNum = commas+1
+
+        # Use a set to store matched ingredient variations
+        matched_ingredients = set()
+
+        for ingred in newArr:
+            if ingred in row:
+                for word in row.split(","):
+                    if ingred in word:
+                        matched_ingredients.add(word.strip())
+
+
+        total_matched_count = len(matched_ingredients)
+        numFin =  elemNum-total_matched_count
+
+        return numFin
+
+
+    newData = fullDataTemp.copy()
+
+    #fullDataTemp['ingredients'] = fullDataTemp['ingredients'].apply(removeIngred)
+    fullDataTemp['ingredients'] = fullDataTemp['ingredients'].apply(removeIngred)
+    
+
+    data = fullDataTemp
 
     #next 8ish lines find dataframes where ingredients are less than numTemp and then gets these rows id to copy into a new dataframe
     #new dataframe does not have ingredients removed by old dataframe. Then it sorts values and returns them.
-    dataFinal = data.loc[data['ingredients'].apply(len) <= numTemp]
+    dataFinal = data.loc[data['ingredients'].astype(int) <= numTemp]
+    print(len(dataFinal))
+
     array = list(dataFinal['name'])
 
     newData = newData.loc[newData['name'].isin(array)]
 
-    newData = newData.loc[newData['n_ingredients'].astype(int) > 3]
-
     newData = newData.sort_values(by=['n_ingredients'], ascending=False)
-
+    
+    print(len(newData))
     return newData
 
 #Updates both the cuisine and course type into a dataframe.
 def tagsUpdate(arr, fullData):
 
-    #makes string arrays into normal arrays
-    fullData["tags"] = fullData["tags"].apply(applyRow)
+
     count = 0
     data = []
     #for loop loops from the array and adds these recipes that it finds into the main dataframe for eachelement in array of input
@@ -169,7 +194,6 @@ def mainMaker(fullData, userData):
                 if dataTemp.shape[0] < 3:
                     dataTemp = dataNew.copy()
                     dataTemp = ingreds(ingred, dataTemp, 2)
-
 
                     if dataTemp.shape[0] < 3:
                         dataTemp = dataNew.copy()

@@ -189,7 +189,9 @@
 .listBox{
   max-width: 300px;
   pointer-events: none;
- 
+  padding-left: 60px;
+  padding-right: 60px;
+
 }
 
 .mins{
@@ -316,6 +318,7 @@
   background-size: 200% 100%;
   background-position: right bottom;
   transition: all .8s ease;
+  color: rgb(0, 0, 0);
   margin: 70px;
   margin-top: 0px;
 
