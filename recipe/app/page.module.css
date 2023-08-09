@@ -344,6 +344,8 @@
   margin-bottom: 30px;
   margin-top: 0px;
   cursor: progress;
+  color: rgb(0, 0, 0);
+
 }
 
 .button:hover{
@@ -369,6 +371,8 @@
   transition: all .8s ease;
   margin: 70px;
   margin-top: 0px;
+  color: rgb(0, 0, 0);
+
 
 }
 
