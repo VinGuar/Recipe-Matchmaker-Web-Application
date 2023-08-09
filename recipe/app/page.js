@@ -330,7 +330,7 @@ export default function Home() {
     var recipeFin = []
 
     if (opt1.length>0){
-      window.alert("Please select all options from the drop down menu in the required ranking filter (LAST filter).")
+      window.alert("Please select all options from the drop down menu in the required ranking filter (LAST FILTER).")
       document.getElementById('rank').scrollIntoView({ behavior: 'smooth', block:'center'});
       setMsg(curr => false)
       return
