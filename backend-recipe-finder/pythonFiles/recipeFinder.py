@@ -24,6 +24,7 @@ def ingreds(ingredArr, fullDataTemp, numTemp):
 
     newArr = ingredArr.copy()
 
+    #loop that removes duplicates. ie, if onion and onion powder in loop, removes onion powder.
     for i in ingredArr:
         if i in newArr:
             for elem in ingredArr:
@@ -40,9 +41,10 @@ def ingreds(ingredArr, fullDataTemp, numTemp):
         commas = row.count(",")
         elemNum = commas+1
 
-        # Use a set to store matched ingredient variations
+        #a set to store matched ingredient variations
         matched_ingredients = set()
 
+        #loop to ensure ingredients are not counted twice.
         for ingred in newArr:
             if ingred in row:
                 for word in row.split(","):
@@ -50,6 +52,7 @@ def ingreds(ingredArr, fullDataTemp, numTemp):
                         matched_ingredients.add(word.strip())
 
 
+        #next 4 lines make numFin that shows how many ingredients the row is missing from user input.
         total_matched_count = len(matched_ingredients)
         numFin =  elemNum-total_matched_count
 
@@ -67,7 +70,6 @@ def ingreds(ingredArr, fullDataTemp, numTemp):
     #next 8ish lines find dataframes where ingredients are less than numTemp and then gets these rows id to copy into a new dataframe
     #new dataframe does not have ingredients removed by old dataframe. Then it sorts values and returns them.
     dataFinal = data.loc[data['ingredients'].astype(int) <= numTemp]
-    print(len(dataFinal))
 
     array = list(dataFinal['name'])
 
@@ -75,7 +77,6 @@ def ingreds(ingredArr, fullDataTemp, numTemp):
 
     newData = newData.sort_values(by=['n_ingredients'], ascending=False)
     
-    print(len(newData))
     return newData
 
 #Updates both the cuisine and course type into a dataframe.

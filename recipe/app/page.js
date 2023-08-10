@@ -691,7 +691,7 @@ export default function Home() {
         </div>
         <div className={styles.mainsecs}>
           <h1 className={styles.maintitle}>Recipe Finder</h1>
-          <p className={styles.header}>If you want to include all options of a filter, leave it blank, the default is no preference!</p>
+          <p className={styles.header}>If you want to include all options of a filter, leave it blank, the default is no preference! (besides the required filter at the end)</p>
           
 
           <div className={styles.mains}>
