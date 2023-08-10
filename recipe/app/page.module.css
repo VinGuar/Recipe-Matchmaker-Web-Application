@@ -102,6 +102,8 @@
 .dropdownlabel{
   display: flex;
   flex-wrap: wrap;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .hide{
@@ -209,8 +211,8 @@
 }
 
 .textfilt{
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .enter{
