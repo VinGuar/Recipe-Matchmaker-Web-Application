@@ -703,7 +703,7 @@ export default function Home() {
               <label className={styles.textfilt}>Enter ingredients you have to find recipes that have only your ingredients. The more you enter, the more possible recipes you can get! Press ENTER key after each one. </label>
               <label style={{"font-size":"12px"}} className={styles.textfilt}>(pre-includes these basic ingredients: water, flour, butter, sugar, oils, and the basic spices)</label>
               <label style={{"font-size":"13px"}} className={styles.textfilt}>(great tool if you want to use only ingredients you already have, however only use if you do not want to go to store.) </label>
-              <input id = "ingredInput" onKeyDown={() => keyClick3(event)}></input>
+              <input className={styles.inputBox} id = "ingredInput" onKeyDown={() => keyClick3(event)}></input>
               <ol className={styles.listBox}>
                 {typeIngredElem}
               </ol>
@@ -732,7 +732,7 @@ export default function Home() {
             <div onClick={() => slivClick(2)} className={styles.sliver}>Cuisine Type (Mexican, Thai, etc) (optional)</div>
             <div  className={sliver2 ? styles.hide : styles.cuisine}>
               <label className={styles.textfilt}>Enter any cuisines you want (mexican, italian, etc). Press ENTER key after each one. </label>
-              <input id = "cuisInput" onKeyDown={() => keyClick2(event)}></input>
+              <input className={styles.inputBox} id = "cuisInput" onKeyDown={() => keyClick2(event)}></input>
               <ol className={styles.listBox}>
                 {typeCuisElem}
               </ol>
@@ -743,7 +743,7 @@ export default function Home() {
             <div onClick={() => slivClick(4)} className={styles.sliver}>Dish Type (pasta, brownies, etc) (optional)</div>
             <div className={sliver4 ? styles.hide : styles.cuisine}>
               <label className={styles.textfilt}>Enter specific dishes you want (mac n cheese, brownies, etc) Press ENTER key after each one. </label>
-              <input id = "dishInput" onKeyDown={() => keyClick4(event)}></input>
+              <input className={styles.inputBox} id = "dishInput" onKeyDown={() => keyClick4(event)}></input>
               <ol className={styles.listBox}>
                 {typeDishElem}
               </ol>
@@ -754,7 +754,7 @@ export default function Home() {
             <div onClick={() => slivClick(1)} className={styles.sliver}>Max Minutes to Spend (optional)</div>
             <div  className={sliver1 ? styles.hide : styles.mins}>
               <label className={styles.textfilt}>Enter max minutes you want to spend. Press ENTER key when done.</label>
-              <input id = "numInput" onKeyDown={() => keyClick1(event)}></input>
+              <input className={styles.inputBox} id = "numInput" onKeyDown={() => keyClick1(event)}></input>
             </div>
           </div>
 
