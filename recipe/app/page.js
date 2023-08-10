@@ -191,7 +191,7 @@ export default function Home() {
         setNum(current => 999999999)
 
 
-      } else if (numTemp==0){
+      } else if (Number(quantity)==0){
         window.alert("Please a number greater than 0")
         document.getElementById("numInput").value = ""
         setNum(current => 999999999)
