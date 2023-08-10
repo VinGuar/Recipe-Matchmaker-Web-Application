@@ -15,7 +15,7 @@ Navigate on over to recipematchmaker.com and enter in your input into the filter
 
 ### backend-recipe-finder folder:
 
-This folder contains the FastAPI, and also the python code and dataset that is used to find the recipes
+This folder contains the backend which consists of a FastAPI application, and also the python code and dataset that is used to find the recipes
 
 - **RecpeFinder.py:** This file is where the recipe finding is done, it takes the user input and uses the ranking filter to filter out and remove recipes that do not match their needs, eventually returning the recipes list that contains user recipes.
 
