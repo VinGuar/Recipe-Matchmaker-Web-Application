@@ -10,18 +10,9 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import fastparquet as fp
 from fastparquet import ParquetFile
-from ast import literal_eval
 
 #make fast api app
 app = FastAPI()
-
-def applyRow(row):
-    try:
-        row = ast.literal_eval(row)
-    except:
-        pass  
-
-    return row
 
 #read parquet file and turn it into a pandas df.
 parquet_file = ParquetFile('recipes.parquet')

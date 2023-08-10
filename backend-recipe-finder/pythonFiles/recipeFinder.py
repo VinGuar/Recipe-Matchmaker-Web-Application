@@ -1,18 +1,6 @@
 #This file finds recipes for user based on their input. 
-
 import pandas as pd
-import ast
-import re
 
-
-#turns stringified arrays into arrays
-def applyRow(row):
-    try:
-        row = ast.literal_eval(row)
-    except:
-        pass  
-
-    return row
 
 #finds reciopes that match ingredients entered
 def ingreds(ingredArr, fullDataTemp, numTemp):
