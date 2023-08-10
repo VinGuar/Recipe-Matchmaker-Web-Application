@@ -186,13 +186,12 @@ export default function Home() {
       var numTemp = document.getElementById("numInput").value
       if (isNaN(numTemp)){
 
-        window.alert("Please enter just a positive numerical number")
+        window.alert("Please enter just a positive numerical number.")
         document.getElementById("numInput").value = ""
         setNum(current => 999999999)
 
-
       } else if (Number(numTemp)==0){
-        window.alert("Please a number greater than 0")
+        window.alert("Please enter a number greater than 0.")
         document.getElementById("numInput").value = ""
         setNum(current => 999999999)
       } else{
