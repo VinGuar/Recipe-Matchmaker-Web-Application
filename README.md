@@ -4,9 +4,7 @@ URL: recipematchmaker.com
 
 ### Description:
 In this repository it gives you personolized recipes based on different filters and things the user wants in a recipe. From things like Cuisine, to using only ingredients you currently have, to many more, it finds you the perfect recipes from almost 200,000 options. It contains two folders, one for the frontend Next.JS website, and one for the backend, which is a FastAPI application. 
-
 <br/>
-
 ### How to use it
 Navigate on over to recipematchmaker.com and enter in your input into the filters and let the application do its magic to find you the best recipes that are tailored to your needs.
 <br/>
