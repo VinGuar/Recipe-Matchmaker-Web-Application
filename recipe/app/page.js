@@ -191,7 +191,7 @@ export default function Home() {
         setNum(current => 999999999)
 
 
-      } else if (numTemp.astype(int)!=0){
+      } else{
 
         if (numTemp === ""){
           document.getElementById("numInput").blur()
@@ -200,10 +200,6 @@ export default function Home() {
           setNum(current => numTemp)
           document.getElementById("numInput").blur()
         }
-      } else if (numTemp.astype(int)==0){
-        window.alert("Please a number greater than 0")
-        document.getElementById("numInput").value = ""
-        setNum(current => 999999999)
       }
 
     }
