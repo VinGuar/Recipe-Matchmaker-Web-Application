@@ -1,34 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Recipe Matchmaker Web Application
 
-## Getting Started
+URL: recipematchmaker.com
 
-First, run the development server:
+### Description:
+In this repository it gives you personolized recipes based on different filters and things the user wants in a recipe. From things like Cuisine, to using only ingredients you currently have, to many more, it finds you the perfect recipes from almost 200,000 options. It contains two folders, one for the frontend Next.JS website, and one for the backend, which is a FastAPI application. 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+<br/>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### How to use it
+Navigate on over to recipematchmaker.com and enter in your input into the filters and let the application do its magic to find you the best recipes that are tailored to your needs.
+<br/>
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## File/Folder breakdown:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### backend-recipe-finder folder:
 
-## Learn More
+This folder contains the FastAPI, and also the python code and dataset that is used to find the recipes
 
-To learn more about Next.js, take a look at the following resources:
+- **RecpeFinder.py:** This file is where the recipe finding is done, it takes the user input and uses the ranking filter to filter out and remove recipes that do not match their needs, eventually returning the recipes list that contains user recipes.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **userinput.py** This file is where user data is validated, it sees if it exists in dataset, and if it does not, it sends back an error message to display to the user.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **main.py** This file is where the fastapi is located. It recieves data from the front end, manipulates it based on what it is with the other files, and sends it back to be used for the frontend.
 
-## Deploy on Vercel
+- **recipes.parquet** This is needed because you can only upload up to 50 MBS to vercel, so I needed to make the dataset into a smaller and compressed file to fit into this requirement.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### recipe folder:
+
+This folder contains the Next.JS front end. The files contained in here are more self-explainable as it is just the frontend.
+
+
+## Other Notes:
+
+- I hope you enjoy this tool! Let me know if there is any questions, ideas, or bugs you have that you want to run by me.

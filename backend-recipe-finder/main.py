@@ -23,6 +23,7 @@ def applyRow(row):
 
     return row
 
+#read parquet file and turn it into a pandas df.
 parquet_file = ParquetFile('recipes.parquet')
 fullData = parquet_file.to_pandas()
 
