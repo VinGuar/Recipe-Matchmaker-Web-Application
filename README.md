@@ -19,11 +19,11 @@ This folder contains the backend which consists of a FastAPI application, and al
 
 - **RecpeFinder.py:** This file is where the recipe finding is done, it takes the user input and uses the ranking filter to filter out and remove recipes that do not match their needs, eventually returning the recipes list that contains user recipes.
 
-- **userinput.py** This file is where user data is validated, it sees if it exists in dataset, and if it does not, it sends back an error message to display to the user.
+- **userinput.py:** This file is where user data is validated, it sees if it exists in dataset, and if it does not, it sends back an error message to display to the user.
 
-- **main.py** This file is where the fastapi is located. It recieves data from the front end, manipulates it based on what it is with the other files, and sends it back to be used for the frontend.
+- **main.py:** This file is where the fastapi is located. It recieves data from the front end, manipulates it based on what it is with the other files, and sends it back to be used for the frontend.
 
-- **recipes.parquet** This is needed because you can only upload up to 50 MBS to vercel, so I needed to make the dataset into a smaller and compressed file to fit into this requirement.
+- **recipes.parquet:** This is needed because you can only upload up to 50 MBS to vercel, so I needed to make the dataset into a smaller and compressed file to fit into this requirement.
 
 
 ### recipe folder:
