@@ -211,6 +211,7 @@ export default function Home() {
   const keyClick2 = async (event) => {
     if (event.key === "Enter"){
       var cuisTemp = document.getElementById("cuisInput").value
+      cuisTemp = cuisTemp.trim()
       cuisTemp = cuisTemp.toLowerCase();
       if (typeCuis.includes(cuisTemp)){
         window.alert("Already selected. Please choose something else.")
@@ -239,6 +240,7 @@ export default function Home() {
     if (event.key === "Enter"){
       var ingred = document.getElementById("ingredInput").value
       ingred = ingred.toLowerCase();
+      ingred = ingred.trim()
 
       if (typeIngred.includes(ingred)){
         window.alert("Already selected. Please enter a different ingredient.")
@@ -265,6 +267,8 @@ export default function Home() {
     if (event.key === "Enter"){
       var dish = document.getElementById("dishInput").value
       dish = dish.toLowerCase();
+      dish = dish.trim()
+
 
       if (typeDish.includes(dish)){
         window.alert("Already selected. Please choose something else.")
