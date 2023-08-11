@@ -52,7 +52,7 @@ def typeMeal(fullData, inp):
     try:
         df2 = fullData.loc[fullData['tags'].apply(lambda arr: inp in arr)]
     except:
-        df = pd.DataFrame()
+        df2 = pd.DataFrame()
 
     if ((df.shape[0]>2) or (df2.shape[0]>2)):
 
